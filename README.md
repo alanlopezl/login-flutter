@@ -1,16 +1,13 @@
-# login
+# login Flutter
 
-A new Flutter project.
+Este proyecto es una aplicación en Flutter 
 
-## Getting Started
+## Características
+- Pantalla de login con validación
+- Registro de usuarios
+<img width="368" height="813" alt="image" src="https://github.com/user-attachments/assets/ec4253c3-5ad6-4515-b5fa-2c8c103c7f7d" />
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Instalación
+1. Clonar el repositorio
+2. Ejecutar `flutter pub get`
+3. Correr con `flutter run`
