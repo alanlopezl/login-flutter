@@ -7,7 +7,7 @@ final urlApi = url;
 class Usuarioprovider with ChangeNotifier {
 
   List<Usuario> usuarios = [];
-
+  Usuario? usuarioLogueado; 
 
   Usuarioprovider(){
     getUsuarios();
@@ -25,5 +25,24 @@ class Usuarioprovider with ChangeNotifier {
     usuarios = response;
     notifyListeners();
   }
+
+
+  /// 🔐 LOGIN
+  bool login(String usuario, String clave) {
+    try {
+      final user = usuarios.firstWhere(
+        (u) =>
+            u.codigoUsuario == usuario &&
+            u.clave == clave,
+      );
+
+      usuarioLogueado = user; // 👈 guardamos el usuario
+      notifyListeners();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
 
 }

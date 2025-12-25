@@ -139,9 +139,9 @@ SingleChildScrollView LoginForm(BuildContext context) {
                       autocorrect: false,
                       controller: txtUsuario,
                       decoration: InputDecorations.inputDecoration(
-                        hintText: 'ejemplo@hotmail.com',
-                        labelText: 'Correo electrónico',
-                        icono: Icon(Icons.alternate_email_rounded),                  
+                        hintText: 'Usuario',
+                        labelText: 'Usuario',
+                        icono: Icon(Icons.person),                  
                       ),
                       // validator: (value) {
                       //  // Expresión regular para validar correos
@@ -184,37 +184,77 @@ SingleChildScrollView LoginForm(BuildContext context) {
                           child: Text('Ingresar',
                            style:  TextStyle(color: Colors.white),),
                       ),
-                      onPressed: () { 
-                        // print(usuarioProvider.usuarios);
-                        var usser = usuarioProvider.usuarios;
-                         if (usser.where((e) => e.codigoUsuario == txtUsuario.text).length > 0 && 
-                            usser.where((e) => e.clave == txtPassword.text).length > 0){
-                            print('Bienvenido al sistema');    
-                         }else{
+                      onPressed: () {
+                      if (txtUsuario.text.isEmpty || txtPassword.text.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.deepPurple,
+                            content: Center(
+                              child: Text(
+                                'Debe ingresar usuario y contraseña',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          )
+                        );
+                        // print('Debe ingresar usuario y contraseña');
+                        return;
+                      }
+
+                      final usuarioProvider =
+                          Provider.of<Usuarioprovider>(context, listen: false);
+
+                      final ok = usuarioProvider.login(
+                        txtUsuario.text.trim(),
+                        txtPassword.text.trim(),
+                      );
+
+                      if (ok) {
+                        Navigator.pushReplacementNamed(context, 'home');
+                      } else {
                         print('Error al ingresar las credenciales');
+                      }
+                    },
 
-                         }
+                      // onPressed: () { 
+                      //   // print(usuarioProvider.usuarios);
+                      //   var usser = usuarioProvider.usuarios;
+                      //    if (usser.where((e) => e.codigoUsuario == txtUsuario.text).length > 0 && 
+                      //       usser.where((e) => e.clave == txtPassword.text).length > 0){
+                      //       // print('Bienvenido al sistema');    
+                            
+                      //   Navigator.pushReplacementNamed(context, 'home');
+                      //    }else{
+                      //       ScaffoldMessenger.of(context).showSnackBar(
+                      //         SnackBar(
+                      //           backgroundColor: Colors.deepPurple,
+                      //           content: Center(
+                      //             child: Text(
+                      //               'El nombre de usuario o contraseña es incorrecto',
+                      //               style: TextStyle(
+                      //                 color: Colors.white, // para que contraste con el fondo
+                      //                 // fontWeight: FontWeight.bold,
+                      //               ),
+                      //             ),
+                      //           ),
+                      //           behavior: SnackBarBehavior.floating, // opcional, para que flote
+                      //           duration: Duration(seconds: 3),       // opcional, tiempo visible
+                      //         ),
+                      //       );
 
-                        // Navigator.pushReplacementNamed(context, 'home');
-                       },
-//                   onPressed: () {
-//   if (txtUsuario.text.isEmpty || txtPassword.text.isEmpty) {
-//     print('Debe ingresar usuario y contraseña');
-//     return;
-//   }
+                      //     //  ScaffoldMessenger.of(context).showSnackBar(
+                      //     //   SnackBar(content: Text('Error al ingresar Usuario o contraseña'),
+                      //     //   backgroundColor: Colors.deepPurple,),
+                            
+                      //     // );
 
-//   final usuarios = usuarioProvider.usuarios;
+                      //   // print('Error al ingresar las credenciales');
 
-//   final existe = usuarios.any((u) =>
-//       u.codigoUsuario == txtUsuario.text &&
-//       u.clave == txtPassword.text);
+                      //    }
 
-//   if (existe) {
-//     print('Bienvenido al sistema');
-//   } else {
-//     print('Error al ingresar las credenciales');
-//   }
-// },
+                      //  },
 
 
                     )
